@@ -21,7 +21,6 @@ jobs:
 
     env:
       # DATABASE_URL: ${{ secrets.DATABASE_URL }}   # Needed only if your build/migrations require DB
-      NODE_ENV: production
 
     steps:
       - name: Checkout
@@ -46,7 +45,7 @@ jobs:
         run: npm ci
 
       - name: Lint
-        run: npm run lint --if-present
+        run: npm run lint
 
       - name: Build
         run: npm run build
