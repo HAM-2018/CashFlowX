@@ -13,6 +13,7 @@ import { Calendar } from "./ui/calendar";
 import { Input } from "./ui/input";
 import { Switch } from "./ui/switch";
 import { Label } from "./ui/label";
+import { type Category } from "@/types/Category";
 
 const transactionSchema = z.object({
     transactionType: z.enum(["income", "expense"]),
@@ -22,7 +23,11 @@ const transactionSchema = z.object({
     description: z.string().min(3, "description must contain at least 3 characters").max(300, "Description cannot exceed 300 characters!"),
 });
 
-export default function TransactionForm() {
+export default function TransactionForm({
+    categories
+}: {
+    categories: Category[];
+}) {
     const form = useForm<z.infer<typeof transactionSchema>>({
         resolver: zodResolver(transactionSchema) as any, //Reapproach resolver error later
         defaultValues: {
@@ -37,6 +42,8 @@ export default function TransactionForm() {
         console.log({ data });
     };
 
+    const transactionType = form.watch("transactionType");
+    const filteredCategories = categories.filter((category) => category.type === transactionType);
 
     return (
         <Form {...form}>
@@ -49,7 +56,11 @@ export default function TransactionForm() {
                                 Transaction Type
                             </FormLabel>
                             <FormControl>
-                                <Select onValueChange={field.onChange} value={field.value}>
+                                <Select onValueChange={(newValue) => {
+                                     field.onChange(newValue);
+                                     form.setValue("categoryId", 0);
+                                    }} 
+                                     value={field.value}>
                                     <SelectTrigger className="w-full">
                                         <SelectValue />
                                     </SelectTrigger>
@@ -79,7 +90,12 @@ export default function TransactionForm() {
                                         <SelectValue />
                                     </SelectTrigger>
                                     <SelectContent>
-                                        
+                                        {filteredCategories.map(category => (
+                                            <SelectItem key={category.id} value={category.id.toString()}
+                                            >
+                                                {category.name}
+                                            </SelectItem>
+                                        ))}
                                     </SelectContent>
                                 </Select>
                             </FormControl>
