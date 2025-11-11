@@ -1,11 +1,10 @@
 "use client";
-
 import TransactionForm, { transactionSchema } from "@/components/transactions.form";
 import { type Category } from "@/types/Category";
 import z from "zod";
 import { createTransaction } from "./action";
 import { format } from "date-fns";
-import { useSonner, toast } from "sonner";
+import { toast } from "sonner";
 
 
 export default function NewTransactionForm({
