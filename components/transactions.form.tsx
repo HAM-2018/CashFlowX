@@ -1,4 +1,4 @@
-"use client"
+"use client";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { addDays, format } from "date-fns";
 import { useForm } from "react-hook-form";
@@ -15,40 +15,43 @@ import { Switch } from "./ui/switch";
 import { Label } from "./ui/label";
 import { type Category } from "@/types/Category";
 
-const transactionSchema = z.object({
+export const transactionSchema = z.object({
     transactionType: z.enum(["income", "expense"]),
     categoryId: z.coerce.number().positive("Please select a category!"),
-    date: z.coerce.date().max(addDays(new Date(), 1), "Transaction Date cannot be in the future!"),
+    transactionDate: z.coerce.date().max(addDays(new Date(), 1), "Transaction Date cannot be in the future!"),
     amount: z.coerce.number().positive("Amount must be greater than 0!"),
     description: z.string().min(3, "description must contain at least 3 characters").max(300, "Description cannot exceed 300 characters!"),
 });
 
-export default function TransactionForm({
-    categories
-}: {
+type Props = {
     categories: Category[];
-}) {
+    onSubmit: (data: z.infer<typeof transactionSchema>) => Promise<void>;
+};
+
+export default function TransactionForm({
+    categories, onSubmit }:Props) {
     const form = useForm<z.infer<typeof transactionSchema>>({
         resolver: zodResolver(transactionSchema) as any, //Reapproach resolver error later
         defaultValues: {
             amount: 0,
             categoryId: 0,
             description: "",
-            date: new Date(),
+            transactionDate: new Date(),
             transactionType: "income",
         },
     });
-    const handleSubmit = async (data: z.infer<typeof transactionSchema>) => {
-        console.log({ data });
-    };
+    
 
     const transactionType = form.watch("transactionType");
     const filteredCategories = categories.filter((category) => category.type === transactionType);
 
     return (
         <Form {...form}>
-            <form onSubmit={form.handleSubmit(handleSubmit)}>
-                <fieldset className="grid grid-cols-2 gap-y-5 gap-x-2">
+            <form onSubmit={form.handleSubmit(onSubmit)}>
+                <fieldset 
+                disabled={form.formState.isSubmitting} 
+                className="grid grid-cols-2 gap-y-5 gap-x-2"
+                >
                 <FormField control={form.control} name="transactionType" render={({ field }) => {
                     return (
                         <FormItem>
@@ -103,7 +106,7 @@ export default function TransactionForm({
                         </FormItem>
                     )
                 }} />
-                <FormField control={form.control} name="date" render={({ field }) => {
+                <FormField control={form.control} name="transactionDate" render={({ field }) => {
                     return (
                         <FormItem>
                             <FormLabel>
@@ -153,7 +156,10 @@ export default function TransactionForm({
                     )
                 }} />
                 </fieldset>
-                <fieldset className="mt-5 flex-col gap-5" >
+                <fieldset
+                disabled={form.formState.isSubmitting}
+                className="mt-5 flex-col gap-5" 
+                >
                     <FormField control={form.control} name="description" render={({ field }) => {
                     return (
                         <FormItem>
