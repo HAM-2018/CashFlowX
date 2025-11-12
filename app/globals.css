@@ -119,3 +119,15 @@
     font-family: var(--font-poppins);
   }
 }
+
+[data-sonner-toast][data-type="error"] {
+  background-color: hsl(0, 84%, 60%)!important; 
+  color: white!important;
+  border: none!important;
+}
+
+[data-sonner-toast][data-type="success"] {
+  background-color: rgb(50, 201, 50)!important;
+  color: white!important;
+  border: none!important;
+}
