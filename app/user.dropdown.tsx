@@ -9,9 +9,7 @@ export default function UserDropdown () {
     return ( 
     <UserButton showName appearance={{
         elements: {
-            userButtonOuterIdentifier: {
-              color: "white"  
-            },
+            userButtonOuterIdentifier: "text-sm font-medium !text-zinc-900 dark:!text-white"
         },
     }}
     >

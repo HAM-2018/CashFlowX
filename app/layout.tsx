@@ -7,6 +7,8 @@ import { ClerkProvider, SignedIn, SignedOut, SignInButton, SignUpButton } from "
 import { Button } from "@/components/ui/button";
 import UserDropdown from "./user.dropdown";
 import { Toaster } from "@/components/ui/sonner";
+import { ThemeProvider } from "@/components/theme-provider";
+import { ModeToggle } from "@/components/mode-toggle";
 
 const poppins = Poppins({
   weight: ["100", "200", "300", "400", "500", "600", "700", "800", "900"],
@@ -28,20 +30,27 @@ export default function RootLayout({
 }>) {
   return (
     <ClerkProvider>
-    <html lang="en">
+    <html lang="en" suppressHydrationWarning>
       <body
-        className={`${poppins.variable} antialiased`}>
-          <nav className="bg-primary p-4 text-white h-20 flex items-center justify-between">
+        className={`${poppins.variable} antialiased bg-background`}
+        >
+        <ThemeProvider 
+        attribute="class"
+        defaultTheme="system"
+        enableSystem
+        disableTransitionOnChange>
+          <nav className="bg-card text-card-foreground p-4 h-20 flex items-center justify-between">
           <Link href="/" className="font-bold text-2xl flex gap-1 items-center">
           <ChartColumnIncreasing className="text-lime-500" />CashFlowX
           </Link>
-          <div>
+          <div className="flex items-center gap-3">
+            <ModeToggle />
             <SignedOut>
               <div className="flex items-center">
-                <Button asChild variant="link" className="text-white">
+                <Button asChild variant="link">
                   <SignInButton />
                 </Button>
-                <Button asChild variant="link" className="text-white">
+                <Button asChild variant="link">
                   <SignUpButton />
                 </Button>
               </div>
@@ -53,6 +62,7 @@ export default function RootLayout({
           </nav>
         {children}
         <Toaster />
+        </ThemeProvider>
       </body>
     </html>
     </ClerkProvider>
