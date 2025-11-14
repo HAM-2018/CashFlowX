@@ -2,7 +2,7 @@
 import TransactionForm, { transactionSchema } from "@/components/transactions.form";
 import { type Category } from "@/types/Category";
 import z from "zod";
-import { createTransaction } from "./action";
+import { createTransaction } from "../../../../db/mutations/createTransaction";
 import { format } from "date-fns";
 import { toast } from "sonner";
 import { useRouter } from "next/navigation";
