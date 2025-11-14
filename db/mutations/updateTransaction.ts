@@ -1,6 +1,4 @@
 "use server";
-
-import { Transaction } from "@/types/Transaction";
 import { transactionSchema } from "@/validation/transactionSchema";
 import { auth } from "@clerk/nextjs/server";
 import z from "zod";
