@@ -1,4 +1,5 @@
 "use client";
+
 import TransactionForm, { transactionSchema } from "@/components/transactions.form";
 import { updateTransaction } from "@/db/mutations/updateTransaction";
 import { type Category } from "@/types/Category";

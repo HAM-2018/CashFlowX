@@ -5,6 +5,7 @@ import Link from "next/link";
 import EditTransactionForm from "./edit.transaction.form";
 import { getTransactionById } from "@/db/queries/getTransactionById";
 import { notFound } from "next/navigation";
+import DeleteTransactionDialog from "./delete.transaction.dialog";
 
 export default async function editTransactionPage({
     params
@@ -44,7 +45,10 @@ export default async function editTransactionPage({
         </Breadcrumb>
         <Card className="mt-4 max-w-screen-md">
           <CardHeader>
-            <CardTitle>Edit Transaction</CardTitle>
+            <CardTitle className="flex justify-between">
+              <span>Edit Transaction</span>
+              <DeleteTransactionDialog transactionId={transaction.id} transactionDate={transaction.transactionDate} />
+            </CardTitle>
           </CardHeader>
           <CardContent>
             <EditTransactionForm 
