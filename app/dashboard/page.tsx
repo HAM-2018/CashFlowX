@@ -1,9 +1,11 @@
-import Link from "next/link";
+import RecentTransactions from "./recentTransactions";
+
 
 export default function DashboardPage() {
     return (
-        <Link href="/dashboard/transactions/new">
-           New Transaction 
-        </Link>
+        <div className="max-w-screen-xl mx-auto py-5">
+            <h1 className="text-4xl font-semibold pb-5">Dashboard</h1>
+            <RecentTransactions />
+        </div>
     )
 }
