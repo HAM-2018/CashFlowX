@@ -42,6 +42,5 @@ export async function getAnnualCashFlow(year: number) {
                 expense: Number(monthlyCashFlow?.totalExpense ?? 0)
             });
         }
-
-    console.log({ annualCashFlow });
+    return annualCashFlow;
 }
