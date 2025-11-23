@@ -1,36 +1,73 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# CashFlowX
+
+Live site: https://cashflowx.dev
+
+CashFlowX is a personal finance dashboard built with Next.js. It helps you track income and expenses, organize them into categories, and keep clear visibility over your cash flow.
+
+## Features
+
+- **Authentication with Clerk**
+  - Email / password or social login
+  - Protected dashboard and transactions pages
+
+- **Transactions**
+  - Create new transactions (amount, date, description, category)
+  - View a list of recent transactions
+  - Basic sorting and filtering (by date, etc.)
+
+- **Categories**
+  - Custom categories for income and expenses
+  - Use categories when creating transactions
+
+- **Dashboard**
+  - Overview of your recent transactions
+  - Quick access to the transactions page
+  - Clean hero section with CTA (View Dashboard)
+
+- **UI/UX**
+  - Built with the Next.js App Router
+  - Tailwind CSS + shadcn/ui components
+  - Responsive layout and dark-friendly hero background
+
+> _Future plans:_ bank/credit-card integration (e.g. Plaid) to automatically import transactions.
+
+---
+
+## Tech Stack
+
+- [Next.js](https://nextjs.org/) (App Router)
+- [TypeScript](https://www.typescriptlang.org/)
+- [Clerk](https://clerk.com/) for authentication
+- [Tailwind CSS](https://tailwindcss.com/)
+- [shadcn/ui](https://ui.shadcn.com/) components
+- [neon/postgres](https://neon.com) Database
+
+---
 
 ## Getting Started
 
-First, run the development server:
+### 1. Clone the repo
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+ - git clone https://github.com/HAM-2018/cashflowx.git
+ - cd cashflowx
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+#### 2. Install dependencies
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+npm install
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+### 3. Configure environment variables
 
-## Learn More
+create a clerk account and neon.tech database
 
-To learn more about Next.js, take a look at the following resources:
+create a .env.local file in the project root and add the required environment variables
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+# Clerk
+NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY=pk_test_...
+CLERK_SECRET_KEY=sk_test_...
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+# Database
+DATABASE_URL=postgresql://user:password@host:5432/cashflowx
 
-## Deploy on Vercel
+### 4. Run the development server
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+npm run dev 
